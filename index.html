@@ -2,35 +2,586 @@
 <html>
   <head>
     <title>Title</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles/styles.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   </head>
   <body>
     <textarea id="source">
 
-class: center, middle
+# Automate All The Things!
 
-# Title
-
----
-
-# Agenda
-
-1. Introduction
-2. Deep-dive
-3. ...
+### 17 Weird Tricks Programmers Should Know
 
 ---
 
-# Introduction
+
+## Benjie Gillam
+Github: [benjie](http://github.com/benjie)
+Twitter: [@benjie](https://twitter.com/benjie)
+
+## Jof Arnold
+Github: [jofarnold](http://github.com/jofarnold)
+Twitter: [@jofarnold](https://twitter.com/jofarnold)
+
+
+---
+
+
+## Goals
+
+1/ To show what kinds of things can be done.
+
+2/ To inspire you to do more automation.
+
+3/ To help you to be happier and more productive.
+
+
+---
+
+
+## Warning! This Might be Fast
+
+
+Just remember this URL: [jofarnold.github.io/automation-talk](https://jofarnold.github.io/automation-talk).
+
+
+Don't worry about taking notes: you probably won't have time.
+
+
+---
+
+
+We'll start with some simpler tricks - things you might already know - and work our way up to a few more sophisticated examples.
+
+
+---
+
+
+# Command Line Automation
+
+.aside[
+NOTE: We've added new lines to many of these commands for readability so you won't be able to directly paste them into your terminal. Convert them to single line commands to use.
+]
+
+---
+
+class: has-code
+
+## Renaming Files
+
+Renaming them one by one in your file explorer is very time consuming. And without automation, the command line takes even longer...
+
+```bash
+mv img137.jpg stock-photo-137.jpg
+mv img138.jpg stock-photo-138.jpg
+mv img139.jpg stock-photo-139.jpg
+```
+
+
+---
+
+class: has-code
+
+## Bulk Renaming Files
+
+```bash
+# mv img137.jpg stock-photo-137.jpg
+# mv img138.jpg stock-photo-138.jpg
+# mv img139.jpg stock-photo-139.jpg
+
+for I in img*.jpg; do
+  mv $I ${I/#img/stock-photo-};
+done;
+```
+
+[www.tldp.org/LDP/abs/html/parameter-substitution.html](http://www.tldp.org/LDP/abs/html/parameter-substitution.html)
+
+
+---
+
+class: has-code
+
+## Make Thumbnails Using ImageMagick
+
+Runs the ImageMagick `convert` command on matching pngs in that directory
+
+```bash
+for I in my-big-photo*.png; do
+  convert -resize 20% $I ${I/%.png/.thumb.jpg};
+done;
+```
+
+[www.imagemagick.org/script/convert.php](http://www.imagemagick.org/script/convert.php)
+
+---
+
+class: has-code
+
+## Run Scheduled Tasks With Cron
+
+```bash
+min hour day_of_month month day_of_week task_to_run
+```
+
+---
+
+class: has-code
+
+## Example:
+
+Pull, rebase and build every hour at 15mins past the hour.
+
+
+```cron
+15 * * * * cd /dev/project
+             &amp;&amp; git pull --rebase
+             &amp;&amp; npm install
+             &amp;&amp; npm run build
+```
+
+---
+
+class: has-code
+
+## Example:
+
+Every day at 5pm send your achievements to Slack `#checkins`.
+
+```cron
+0 17 * * * cd /dev/project
+             &amp;&amp; git standup
+             |  slackcli -h "#checkins" -c
+```
+
+
+[github.com/kamranahmedse/git-standup](https://github.com/kamranahmedse/git-standup)
+[github.com/candrholdings/slack-cli](https://github.com/candrholdings/slack-cli)
+
+
+---
+
+
+# Automate Your Editor
+
+
+---
+
+class: has-code
+
+## Multiple Cursors
+
+Here's an example for Vim, but many other editors such as Sublime, Atom support this too.
+
+![multiple cursors](https://jofarnold.github.io/automation-talk/images/multiple-cursors.gif)
+
+```viml
+Plug 'terryma/vim-multiple-cursors'
+let g:multi_cursor_exit_from_visual_mode = 0
+let g:multi_cursor_exit_from_insert_mode = 0
+```
+
+[github.com/terryma/vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors)
+
+
+---
+
+
+class: has-code
+
+## Change a Constant Across Every File
+
+
+```viml
+:silent! argdo %s/Foo/Bar/ge
+```
+
+Across all files in the `arg` list this `silent`ly `s`ubstitutes the text `Foo` with `Bar` `g`lobally skipping any `e`rrors
+
+[vimcasts.org/episodes/using-argdo-to-change-multiple-files/](http://vimcasts.org/episodes/using-argdo-to-change-multiple-files/)
+
+
+---
+
+class: has-code
+
+## Lint for Code Issues
+
+
+![eslint](https://jofarnold.github.io/automation-talk/images/lint.png)
+
+
+Here I'm attempting to reassign foo which is giving me a poop emoji and a error message that I'm doing something we don't allow.
+
+
+---
+
+Plugins (Note for Vim users you'll need NeoVim or Vim8 to get the async goodness)
+
+[github.com/benekastah/neomake](https://github.com/benekastah/neomake)
+
+[github.com/benjie/neomake-local-eslint.vim](https://github.com/benjie/neomake-local-eslint.vim)
+
+[github.com/w0rp/ale](https://github.com/w0rp/ale)
+
+---
+
+
+## Other Editor Automation Techniques
+
+There's a lot of other ways of saving typing too. Investigate at your own leisure:
+
+Snippets: e.g. vim-snipmate
+
+File templates: e.g. vim-template
+
+Autocomplete: e.g. YouCompleteMe
+
+
+---
+
+
+# Automate Your Browser
+
+
+---
+
+
+## JavaScript Bookmarklets
+
+You can create bookmarks that contain not URLs but JavaScript for quick actions. You simply prefix the command with `javascript:` and put it in the URL field of the bookmark.
+
+
+---
+
+class: has-code
+
+## Pre-Fill Forms for Testing
+
+
+![form filler](https://jofarnold.github.io/automation-talk/images/form-filler.gif)
+
+---
+
+Example code:
+
+[jofarnold.github.io/automation-talk/examples/random-form-filler.js](https://jofarnold.github.io/automation-talk/examples/random-form-filler.js)
+
+.aside[
+  Note: you'll need to uglify that since the bookmarklets require a single line:
+]
+
+[jofarnold.github.io/automation-talk/examples/random-form-filler.ugly.js](https://jofarnold.github.io/automation-talk/examples/random-form-filler.ugly.js)
+
+
+---
+
+class: has-code
+
+## Clear Local Storage
+
+
+If you're working with local storage, sometimes cleaning it out is very helpful. It's much quicker via a bookmarklet than using the browser dev tools.
+
+
+```javascript
+javascript:localStorage.clear();window.location.reload();
+```
+
+
+---
+
+class: has-code
+
+## Expand Github Panels
+
+GitHub's panels are of limited width; sometimes this isn't suitable. Horizontal scrolling is a pain - let's fix it:
+
+Make wide:
+
+`javascript:Array.prototype.slice.call( document.querySelectorAll(".file")).forEach( el => {el.style.width = window.innerWidth - 40 + "px";el.style.marginLeft = (980 - (window.innerWidth - 40))/2 + "px"})`
+
+
+---
+
+class: has-code
+
+Make normal again:
+
+`javascript:Array.prototype.slice.call( document.querySelectorAll(".file")).forEach( el => {el.style.width = '';el.style.marginLeft = ''})`
+
+
+---
+
+class: has-code
+
+## Browsersync, Adobe Edge...
+
+
+Automagically update all your browsers on save.
+
+![BrowserSync](https://jofarnold.github.io/automation-talk/images/reload.gif)
+
+
+Source: [Addy Osmani, HTML5Rocks]( https://www.html5rocks.com/en/tutorials/tooling/synchronized-cross-device-testing/)
+
+---
+
+
+# Time to Get Fancy
+# 💃
+
+
+---
+
+
+## Automate Version Control
+
+Dealing with git's confusing upstream settings and creating pull requests on GitHub/Bitbucket can waste valuable seconds. Add to your bash/zsh profile:
+
+
+---
+
+class: has-code, smaller-code
+
+```bash
+# Gets the GitHub URL of the current repo
+alias ghurl='git ghurl'
+
+# Pushes the current branch and sets the upstream
+alias gpu='git push -u origin $(git rev-parse --abbrev-ref HEAD)'
+
+# As gpu, then opens GitHub create PR for this branch
+alias gpupr='git push -u origin $(git rev-parse --abbrev-ref HEAD) &amp;&amp;
+  open $(ghurl)/compare/$(git rev-parse --abbrev-ref HEAD)?expand=1'
+
+# As gpupr, but against `production` branch 
+# and prepares releasenotes for you!
+alias gpuppr='git releasenotes | pbcopy; 
+  git push -u origin $(git rev-parse --abbrev-ref HEAD) &amp;&amp;
+  open $(ghurl)/compare/production...$(
+    git rev-parse --abbrev-ref HEAD
+  )?expand=1'
+```
+
+---
+
+
+class: has-code, smaller-code
+
+~/.gitconfig:
+
+```ini
+[alias]
+# Figures out the GitHub URL for this repo
+ghurl =! bash -c 'git config --get remote.origin.url |
+sed -E "s/.+:\\(.+\\)$/https:\\\\/\\\\/github\\\\.com\\\\/\\\\1/g" |
+sed "s/\\.git$//"'
+
+# Takes the merge commits (assuming they're GitHub PRs)
+# and tidies them up into release notes
+releasenotes = "!git fetch -p >&amp;2 &amp;&amp;
+git log --format=\"%s%x09%b\" --merges origin/production...HEAD |
+grep -v \"Merge branch 'production'\" |
+sed -Ee s'/Merge pull request (#[0-9]+) from [^ '$'\\t'']+/\\1/' |
+column -s $'\\t' -t"
+```
+
+---
+
+class: has-code
+
+## Automatically Deploy When Build Passes
+
+circle.yml:
+
+```yaml
+[...]
+deployment:
+  production:
+    branch: production
+    commands:
+      - git push git@heroku.com:YOURAPP.git $CIRCLE_SHA1:master
+      - heroku maintenance:on --app YOURAPP
+      - heroku run --exit-code 'rake db:migrate' --app YOURAPP
+      - heroku maintenance:off --app YOURAPP
+```
+
+
+---
+
+
+## Slack (and GitHub) Commands for (Non-Technical) Team Members
+
+Saves developers getting interrupted.
+
+Saves team waiting for developers.
+
+https://hubot.github.com/
+https://github.com/botdylan/botdylan
+
+---
+
+
+class: has-code
+
+## Examples:
+
+### Enable feature flags on a Heroku review app:
+
+Slack: `teambot enable awesome_new_feature on myapp-pr-73`
+
+GitHub PR: `/enable awesome_new_feature`
+
+
+---
+
+class: has-code
+
+## Examples:
+
+### Trigger a deploy to the testing environment
+
+Slack: `teambot deploy my-wip-branch to myapp-testing`
+
+GitHub PR: `/deploy myapp-testing`
+
+
+---
+
+class: has-code
+
+## Examples:
+
+### Reset the testing database:
+
+`teambot reset myapp-testing from myapp-staging please`
+
+### Extend a customers trial
+`teambot extend trial awesome@customer.email 14 days`
+
+### Grant a customer credit
+`teambot credit awesome@customer.email $30`
+
+
+---
+
+
+## Show Stripe Payments In Slack
+
+
+![make it rain](https://jofarnold.github.io/automation-talk/images/make-it-rain.gif)
+
+https://github.com/fitztrev/make-it-rain
+
+
+---
+
+class: has-code
+
+## Automate Your Children
+
+
+Make your children go to bed
+
+
+![sleeping kid](https://jofarnold.github.io/automation-talk/images/sleeping-kid.jpg)
+
+
+[Source: fujidreams](https://pixabay.com/en/sleeping-boy-tired-sleep-cute-824601/)
+
+
+---
+
+
+# But With Great Power...
+
+
+---
+
+class: has-code
+
+## Know When Not to Automate
+
+But be careful. It's addictive and not always a good idea. You need to be alert and realistic
+
+![974 - The General Problem](https://jofarnold.github.io/automation-talk/images/the-general-problem.png)
+
+[CC License](https://xkcd.com/license.html)
+
+
+---
+
+class: has-code
+
+## If Your Task is Generic
+
+### [ifttt.com](https://ifttt.com)
+
+More consumer-focussed such as "When I upload to  Twitter also update Facebook and Instagram".
+
+### [zapier.com](https://zapier.com)
+
+More business-focussed such as  "When I get a Stripe payment, create an entry in Salesforce".
+
+
+---
+
+## ...But If You Need Something Custom, Be Careful
+
+
+---
+
+.bigImage[
+  ![1319 - Automation](https://jofarnold.github.io/automation-talk/images/automation.png)
+]
+
+[CC License](https://xkcd.com/license.html)
+
+---
+
+
+## Running Your Own Custom Solutions Comes With Overheads
+
+
+---
+
+Servers can be a maintenance headache and ongoing cost. We recommend [heroku.com](https://www.heroku.com/).
+
+Keeping modules up to date can be a pain. If you've good test coverage, try [greenkeeper.io](https://greenkeeper.io/).
+
+As for keeping up with third party API changes; subscribe to their changelogs?
+
+
+---
+
+
+## There is Another Way!
+
+We'd love you all to be super fast, productive and happy too...
+
+
+---
+
+class: has-code
+
+## ...Let Us Help!
+
+### Say hello after the the talk and we'll give you a hand 😎 (Hint: we like 🍰 🍪 🍻)
+
+### Thanks!
+
+
+.little[
+Benjie Gillam: twitter [@benjie](https://twitter.com/benjie), email [automate@jemjie.com](mailto:automate@jemjie.com)
+
+Jof Arnold: twitter [@jofarnold](https://twitter.com/jofarnold), email [barcamp@jofarnold.com](mailto:barcamp@jofarnold.com)
+]
 
     </textarea>
     <script src="remark-latest.min.js">
     </script>
     <script>
       var slideshow = remark.create({
-        source: (document.getElementById("source").innerHTML).replace(/^<!--|-->$/g, ""),
-        slideNumberFormat: function (current, total) { return null },
         ratio: '4:3'
       });
     </script>
