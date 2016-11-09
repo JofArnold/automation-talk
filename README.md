@@ -1,2 +1,2 @@
-# automation-talk
-Automate All The Things!
+Automate All the Things!
+========================
