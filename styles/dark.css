@@ -1,3 +1,6 @@
+@import 'hljs-dark.css';
+
+
 /* latin */
 @font-face {
   font-family: 'Montserrat';
@@ -207,74 +210,3 @@ img {
   float: right;
   width: 47%;
 }
-
-.comment, .hljs-title {
-  color: #969896;
-}
-
-.hljs-variable, .hljs-attribute, .hljs-tag, .hljs-regexp, .hljs-ruby .constant, .hljs-xml .tag .title, .hljs-xml .pi, .hljs-xml .doctype, .hljs-html .doctype, .hljs-css .id, .hljs-css .class, .hljs-css .pseudo {
-  color: #cc6666;
-}
-
-.hljs-number, .hljs-preprocessor, .hljs-built_in, .hljs-literal, .hljs-params, .hljs-constant, .hljs-section {
-  color: #F36586 !important;
-}
-
-.hljs-class, .hljs-ruby .class .title, .hljs-css .rules .attribute {
-  color: #f0c674;
-}
-
-.hljs-string, .hljs-value, .hljs-inheritance, .hljs-header, .hljs-ruby .symbol, .hljs-xml .cdata {
-  color: #9CDBA5 !important;
-}
-
-.hljs-css .hexcolor {
-  color: #8abeb7;
-}
-
-.hljs-function, .hljs-python .decorator, .hljs-python .title, .hljs-ruby .function .title, .hljs-ruby .title .keyword, .hljs-perl .sub, .hljs-javascript .title, .hljs-coffeescript .title {
-  color: #81a2be;
-}
-
-.hljs-keyword, .hljs-javascript .function {
-  color: #7D8FB0;
-  font-weight: normal !important;
-}
-
-.hljs-default .hljs {
-  background: #101010;
-  border: 1px solid #ccc;
-  color: #c5c8c6;
-  font-family: Menlo, Monaco, Consolas, monospace;
-  line-height: 1.5;
-  padding: 10px;
-}
-
-.hljs-default .hljs-tag,
-.hljs-default .xml .hljs-tag,
-.hljs-default .hljs-tag .hljs-title,
-.hljs-default .xml .hljs-tag .hljs-title {
-  color: #66ADC7;
-  font-weight: normal !important;
-}
-
-.hljs-default .hljs-title {
-  color: #2E8CB9;
-  font-weight: normal !important;
-}
-
-code, .remark-code {border: none !important}
-.hljs-default .javascript .xml {
-  opacity: 1;
-}
-
-code .lolight,
-code .lolight * {
-  color: #666 !important;
-}
-
-code .hilight,
-code .hilight * {
-  color: #5DC744 !important;
-}
-
