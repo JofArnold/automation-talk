@@ -1,68 +1,5 @@
 @import 'hljs-dark.css';
 
-
-/* latin */
-@font-face {
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Montserrat-Regular'), url(fonts/montserrat/Montserrat-Regular.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
-/* latin */
-@font-face {
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Montserrat-Bold'), url(fonts/montserrat/Montserrat-Bold.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
-
-
-/* ----- Remark overrides ----- */
-.remark-slide-scaler {
-  -moz-box-shadow: none;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
-
-.remark-container,
-.remark-notes-area {
-  background: black;
-}
-
-.remark-slide-content {
-  padding: 1em 3em;
-}
-
-.remark-slide-content h1 {
-  font-size: 3.0em;
-  line-height: 110%;
-}
-
-.remark-slide-content h2 {
-  font-size: 2.2em;
-}
-
-.remark-slide-content h3 {
-  font-size: 1.8em;
-}
-
-.remark-slide-content.full-code {
-  padding: 0;
-}
-
-.full-code pre {
-  margin: 0;
-}
-
-/* ----- Remark overrides ----- */
-
-body {
-  font-family: Montserrat, 'Avenir Next', 'Arial Black', Arial, sans-serif;
-  font-weight: 400;
-}
-
 h1,
 h2 {
   color: #EF325E;
@@ -71,15 +8,6 @@ h2 {
 h3,
 p {
   color: white;
-}
-
-h1, h2, h3, h4 {
-  font-weight: 700;
-  font-family: Montserrat, 'Avenir Next', 'Arial Black', Arial, sans-serif;
-
-}
-p, h3 {
-  font-size: 1.8em;
 }
 
 a {
@@ -93,38 +21,17 @@ strong {
 
 iframe {
   border: 2px solid #EBEAEA;
-  height: 100%;
-  width: 100%;
 }
 
 .aside p {
   color: #B2EF8D;
-  font-size: 1.25em;
 }
 
-img {
-  outline: 0 !important;
-  border: 0 !important;
-  max-height: 12em;
-  max-width: 100%
-}
-
-.bigImage img {
-  height: 60%;
-  max-height: auto;
-  display: inline-block;
-}
-
-.multipleCursors img {
-  height: 8em;
-}
 
 /* ----- Template styles ----- */
 
 .remark-slide-content {
   background: #141E2B;
-  text-align: center;
-  vertical-align: middle;
 }
 
 .remark-slide-number {
@@ -138,75 +45,21 @@ img {
 
 .remark-inline-code {
   background: #05090E;
-  border-radius: 0.2em;
-  padding: 0 0.3em;
 }
 
-.little,
-.little p {
-  font-size: 0.7em;
-}
-
-
-.cover {
-  -moz-background-size: cover !important;
-  -webkit-background-size: cover !important;
-  background-position-x: center !important;
-  background-position-y: center !important;
-  background-repeat: no-repeat !important
-  background-size: cover !important;
-}
-
-.title-page {
-  padding-right: 320px;
-}
 
 /* ----- Code Blocks ----- */
 
-.has-code {
-  padding: 0 2em;
-}
-
-.has-code p,
-.has-code p {
-  font-size: 1.5em;
-}
 
 .has-code pre,
 .has-code code {
-  font-size: 1.0em;
   color: #A4D0DE;
-  text-align: left !important;
 }
-
-
-.has-code.smaller-code pre,
-.has-code.smaller-code .remark-code-line,
-.has-code-smaller-code code {
-  font-size: 1.0em;
-}
-
 
 .remark-code, .remark-inline-code {
-  font-family: Monaco, "Lucida Console", monospace;
-  font-size: 0.9em !important;
   color: #ddd !important;
 }
 
 .remark-inline-code {
   color: #2B497F;
-}
-
-.zoom-code .remark-code {
-  font-size: 1.1em;
-}
-
-.pull-left {
-  float: left;
-  width: 47%;
-}
-
-.pull-right {
-  float: right;
-  width: 47%;
 }
