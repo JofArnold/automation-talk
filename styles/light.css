@@ -1,0 +1,20 @@
+@import 'hljs-atom-one-light.css';
+
+
+body {
+  color: #66595c;
+}
+
+h1,
+h2 {
+  color: #EF325E;
+}
+
+a {
+  color: #2E8CB9;
+  text-decoration: none;
+}
+
+.remark-inline-code {
+  background: #F0F0F0;
+}
