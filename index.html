@@ -358,11 +358,11 @@ Dealing with git's confusing upstream settings and creating pull requests on Git
 class: has-code, smaller-code
 
 ```bash
-# Gets the GitHub URL of the current repo
-alias ghurl='git ghurl'
-
 # Pushes the current branch and sets the upstream
 alias gpu='git push -u origin $(git rev-parse --abbrev-ref HEAD)'
+
+# Gets the GitHub URL of the current repo
+alias ghurl='git ghurl'
 
 # As gpu, then opens GitHub create PR for this branch
 alias gpupr='git push -u origin $(git rev-parse --abbrev-ref HEAD) &amp;&amp;
